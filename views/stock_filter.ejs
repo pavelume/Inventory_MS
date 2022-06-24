@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Custom CSS-->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Semantic UI CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <title>Stock Filter</title>
+</head>
+<body>
+  <!--Vertical Navbar-->
+  <div class="vertical-nav bg-white" id="sidebar">
+    <div class="py-4 px-3 mb-4" style="background-color: #ff8ab3;" >
+      <!-- style="background: linear-gradient(to top, #0066eb 0%, #ff8ab3 68%);" -->
+      <div class="media d-flex align-items-center">
+
+        &emsp;<div class="media-body">
+          <h4 class="m-0"><p class="text-white">Aurora IT</p></h4>
+            <p class="font-weight-light text-white mb-0">Admin</p>
+        </div>
+      </div>
+    </div>
+    
+
+
+
+
+    <!-- <h5 class="ui horizontal divider header text-primary"> -->
+
+    <center>
+      <div class="py-2" style="background-color: darkcyan;">
+        <h5>MAIN</h5>
+      </div>
+    </center>
+  
+    <ul class="nav flex-column bg-white mb-0 mt-2">
+      <li class="nav-item">
+        <a href="/" class="nav-link text-dark font-italic">
+                    <!-- <i class="home icon"></i> -->
+                  Dashboard
+              </a>
+      </li>
+      <!-- <li class="nav-item">
+        <a href="/billing" class="nav-link text-dark font-italic"  >
+            Bill
+        </a>
+      </li> -->
+      <li class="nav-item">
+        <a href="/orders" class="nav-link text-dark font-italic">
+          <!-- <i class="shopping basket icon"></i> -->
+            <!-- <i class="home icon"></i> -->
+            View Orders
+              
+        </a>
+      </li>
+      <!-- <li class="nav-item">
+        <a href="/viewstocks" class="nav-link text-dark font-italic" >
+            View Stocks       
+        </a>
+      </li> -->
+      <!-- <li class="nav-item">
+        <a href="/stocks" class="nav-link text-dark font-italic" >
+            Add Stock     
+              </a>
+      </li> -->
+    </ul>
+  
+    <center>
+      <div class="py-2" style="background-color: darkcyan;">
+        <h5>Manage</h5>
+      </div>
+    </center>
+    <!-- <h5 class="ui horizontal divider header text-primary">
+      CUSTOMIZE
+    </h5> -->
+  
+    <ul class="nav flex-column bg-white mb-0">
+      <li class="nav-item">
+        <a href="/brands" class="nav-link text-dark font-italic">
+          <!-- <i class="yelp icon"></i> -->
+            <!-- <i class="home icon"></i> -->
+            Brand
+                  
+              </a>
+      </li>
+      <li class="nav-item">
+        <a href="/categories" class="nav-link text-dark font-italic"  >
+          <!-- <i class="bookmark icon"></i> -->
+            <!-- <i class="home icon"></i> -->
+            Category
+                  
+              </a>
+      </li>
+      <li class="nav-item">
+        <a href="/models" class="nav-link text-dark font-italic">
+          <!-- <i class="check square icon"></i> -->
+            <!-- <i class="home icon"></i> -->
+            Models
+                  
+              </a>
+      </li>
+    </ul>
+  
+    <center>
+      <div class="py-2" style="background-color: darkcyan;">
+        <h5>Reports</h5>
+      </div>
+    </center>
+
+    <!-- <h5 class="ui horizontal divider header text-primary">
+      FILTERS
+    </h5> -->
+  
+    <ul class="nav flex-column bg-white mb-0">
+      <li class="nav-item">
+        <a href="/sales_filter" class="nav-link text-dark font-italic"  >
+          <!-- <i class="yelp icon"></i> -->
+            <!-- <i class="home icon"></i> -->
+            Sales
+                  
+              </a>
+      </li>
+      <li class="nav-item">
+        <a href="/stock_filter" class="nav-link text-dark font-italic" style="background-color: slategray;">
+          <!-- <i class="bookmark icon"></i> -->
+          <p class="text-white">
+            <!-- <i class="home icon"></i> -->
+            Stock
+        </p>
+                  
+              </a>
+      </li>
+    </ul>
+    <center>
+      <div class="py-2" style="background-color: darkcyan;">
+        <h5>Accounts</h5>
+      </div>
+    </center>
+    <ul class="nav flex-column bg-white mb-0">
+      <li class="nav-item">
+        <a href="/register" class="nav-link text-dark font-italic">
+            Register Stuff
+          </a>
+      </li>
+      <li class="nav-item">
+        <a href="/accountRegister" class="nav-link text-dark font-italic">
+            Accounts Details
+        </a>
+      </li>
+    </ul>
+    <form action="/logout?_method=DELETE" method="POST">
+      <center><button type="submit" class="btn btn-danger mb-4 mt-2" ><p class="text-white">Log Out</p></button></center>
+    </form>
+  </div>
+  <!-- End vertical navbar -->
+  
+  
+  <!-- Page content holder -->
+  <div class="page-content p-5" id="content" >
+    <!-- Toggle button -->
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 "><i class="align justify icon"></i>
+          <!-- <small class="text-uppercase font-weight-bold">Menu</small> -->
+        </button>
+
+        <div class="d-flex">
+          <img src="admin.svg" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
+        </div>
+      </div>
+    </nav>
+  
+    <!-- Page content -->
+   
+       <!-- <h1 class="text-primary">DASHBOARD</h1> -->
+       <h1 class="text-center ui horizontal divider header text-primary">Stocks Filter</h1>
+       <br>
+        <!-- <center><img class="ui large rounded image" src="stock_filter.svg"></center> -->
+        <br>
+        
+
+
+  <div class="row">
+    <div class="col">Select Brand Name:
+      <select class="form-select" name="brand" id="brand">
+        <% brand.forEach(e=>{%>
+          <option value="<%= e.Brand %>"><%= e.Brand %></option>
+        <%}) %>
+      </select>
+    </div>
+    <div class="col">
+      Select Category:
+      <select class="form-select" name="Category" id="Category">
+        <% category.forEach(e=>{%>
+          <option value="<%= e.Category %>"><%= e.Category %></option>
+        <%}) %>
+      </select>
+    </div>
+  </div>
+
+
+  <button onclick="fetchStock()" class="btn btn-primary mt-2">Search</button>
+  
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ItemID</th>
+        <th>ItemName</th>
+        <th>Category</th>
+        <th>Brand</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+     
+    </tbody>
+  </table>
+
+
+
+
+
+
+  
+  
+  
+  
+  <br>
+ 
+  
+  <!--Semantic UI Scripts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    $(function() {
+  // Sidebar toggle
+  $('#sidebarCollapse').on('click', function() {
+    $('#sidebar, #content').toggleClass('active');
+  });
+});
+
+  </script>
+
+<script>
+  function fetchStock() {
+
+    $("#tableBody").empty();
+
+    let brandName= $('#brand').find(":selected").text();
+    let categoryame= $('#Category').find(":selected").text();
+    console.log(brandName);
+    console.log(categoryame);
+
+    fetch('stockReport',{
+          method:"POST",
+          headers:{'Content-Type':'application/json'}
+      }).then(res=>res.json()).then(data=>{
+        let order = data.rows;
+        console.log(order);
+
+        for(let i=0;i<order.length;i++)
+        {
+          if (order[i].Brand == brandName && order[i].Category == categoryame) {
+            let row = $("<tr>");
+            let col =$(`<td>${order[i].ItemID}</td>`);
+            let col1 =$(`<td>${order[i].ItemName}</td>`);
+            let col2 =$(`<td>${order[i].Category}</td>`);
+            let col3 =$(`<td>${order[i].Brand}</td>`);
+            let col4 =$(`<td>${order[i].Quantity}</td>`);
+
+            row.append(col);
+            row.append(col1);
+            row.append(col2);
+            row.append(col3);
+            row.append(col4);
+
+            $("#tableBody").append(row);
+            
+          }
+        }
+
+
+      })
+    // $.ajax({
+    //   type: "POST",
+    //   url: "/fetchitem",
+    //   data: {
+    //     "itemid": pass_item.value
+    //   },
+    //   success: function (data) {
+    //     if (data.status == 200) {
+
+    //       x = data.rows
+          
+
+
+    //     } else if (data.status == "failed") {
+    //       alert("failed authentication!")
+    //     }
+    //   }
+    // });
+  }
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Custom CSS-->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Semantic UI CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <title>Sales Filter</title>
+</head>
+
+<body>
+  <!--Vertical Navbar-->
+  <div class="vertical-nav bg-white" id="sidebar">
+    <div class="py-4 px-3 mb-4" style="background-color: #ff8ab3;">
+      <div class="media d-flex align-items-center">
+
+        &emsp;<div class="media-body">
+          <h4 class="m-0">
+            <p class="text-white">Aurora IT</p>
+          </h4>
+          <p class="font-weight-light text-white mb-0">Admin</p>
+        </div>
+      </div>
+    </div>
+
+    <center>
+      <div class="py-2" style="background-color: darkcyan;">
+        <h5>MAIN</h5>
+      </div>
+    </center>
+
+    <ul class="nav flex-column bg-white mb-0 mt-2">
+      <li class="nav-item">
+        <a href="/" class="nav-link text-dark font-italic">
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/orders" class="nav-link text-dark font-italic">
+          View Orders
+
+        </a>
+      </li>
+    </ul>
+
+    <center>
+      <div class="py-2" style="background-color: darkcyan;">
+        <h5>Manage</h5>
+      </div>
+    </center>
+
+    <ul class="nav flex-column bg-white mb-0">
+      <li class="nav-item">
+        <a href="/brands" class="nav-link text-dark font-italic">
+          Brand
+
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/categories" class="nav-link text-dark font-italic">
+          Category
+
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/models" class="nav-link text-dark font-italic">
+          Models
+
+        </a>
+      </li>
+    </ul>
+
+    <center>
+      <div class="py-2" style="background-color: darkcyan;">
+        <h5>Reports</h5>
+      </div>
+    </center>
+
+    <ul class="nav flex-column bg-white mb-0">
+      <li class="nav-item">
+        <a href="/sales_filter" class="nav-link text-dark font-italic" style="background-color: slategray;">
+          <p class="text-white">
+            Sales
+          </p>
+
+
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/stock_filter" class="nav-link text-dark font-italic">
+          Stock
+        </a>
+      </li>
+    </ul>
+    <center>
+      <div class="py-2" style="background-color: darkcyan;">
+        <h5>Accounts</h5>
+      </div>
+    </center>
+    <ul class="nav flex-column bg-white mb-0">
+      <li class="nav-item">
+        <a href="/register" class="nav-link text-dark font-italic">
+            Register Stuff
+          </a>
+      </li>
+      <li class="nav-item">
+        <a href="/accountRegister" class="nav-link text-dark font-italic">
+            Accounts Details
+        </a>
+      </li>
+    </ul>
+    <form action="/logout?_method=DELETE" method="POST">
+      <center><button type="submit" class="btn btn-danger mb-4 mt-2">
+          <p class="text-white">Log Out</p>
+        </button></center>
+    </form>
+  </div>
+  <!-- End vertical navbar -->
+
+
+  <!-- Page content holder -->
+  <div class="page-content p-5" id="content">
+    <!-- Toggle button -->
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 "><i
+            class="align justify icon"></i>
+        </button>
+
+        <div class="d-flex">
+          <img src="admin.svg" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
+        </div>
+      </div>
+    </nav>
+    <!-- Page content -->
+
+    <br>
+    <h1  class="text-center ui horizontal divider header text-primary">SALES FILTER</h1>
+    <br>
+    <br>
+
+
+    <!-- date filter -->
+
+
+    <div class="row">
+      <div class="col"><label for="" class="form-label">Start Date:</label>
+        <input type="date" name="" id="startDate" class="form-control" style="width: 80%;">
+        </div>
+        <div class="col">
+          <label for="" class="form-label">End Date:</label>
+          <input type="date" name="" id="endDate" class="form-control" style="width: 80%;">
+        </div>
+    </div>
+
+
+    <button onclick="fatchSpace()" type="submit" class="btn btn-primary mt-2">search</button>
+    
+    <center><h1>Search Result</h1></center>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>TransactionID</th>
+          <th>ItemID</th>
+          <th>ItemName</th>
+          <th>Quantity</th>
+          <th>CustomerNumber</th>
+          <th>TransactionDate</th>
+        </tr>
+      </thead>
+      <tbody id="searchTable">
+
+      </tbody>
+    </table>
+    <br>
+    <br>
+<!-- end filter  -->
+
+
+  </div>
+  <!-- End page content -->
+
+
+
+  <br>
+
+
+  <!--Semantic UI Scripts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous">
+  </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+  <script>
+    $(function () {
+      // Sidebar toggle behavior
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+      });
+    });
+
+  </script>
+
+  <script>
+    //   console.log(document.getElementsByTagName('input'))
+    function myFunction() {
+      if (document.getElementById('exampleRadios2').checked == true) {
+        document.getElementById("month").disabled = false;
+        document.getElementById("year").disabled = false;
+      }
+      if (document.getElementById('exampleRadios3').checked == true) {
+        document.getElementById("year").disabled = false;
+        document.getElementById("month").disabled = true;
+      }
+    }
+  </script>
+
+<script>
+  function fatchSpace(){
+
+    $("#searchTable").empty();
+
+    let startDate =  document.getElementById("startDate").value;
+    let endtDate = document.getElementById("endDate").value;
+    let startSplit = startDate.split('-');
+    let endSplit = endtDate.split('-');
+
+    let table= document.getElementById("table");
+
+    console.log(startDate);
+    console.log(endtDate);
+    console.log(startSplit);
+    console.log(endSplit);
+
+    let startYear = startSplit[0];
+    let startMonth = startSplit[1];
+    let startDay = startSplit[2];
+
+    let endYear = endSplit[0];
+    let endMonth = endSplit[1];
+    let endDay = endSplit[2];
+
+      fetch('ordersearch',{
+          method:"POST",
+          headers:{'Content-Type':'application/json'}
+      }).then(res=>res.json()).then(data=>{
+          
+        let order = data.rows;
+        for(let i=0;i<order.length;i++)
+        {
+          if(order[i].TYear>= startYear && order[i].TYear<= endYear)
+          {
+            if(order[i].TMonth>= startMonth && order[i].TMonth<= endMonth)
+            {
+              if (order[i].TDay>= startDay && order[i].TDay<= endDay) 
+              {
+                console.log("OrederList");
+
+                let row = $("<tr>");
+                let tIdCol = $("<td>",{
+                  text: `${order[i].TransactionID}`
+                });
+                let tIdCol1 = $("<td>",{
+                  text: `${order[i].ItemID}`
+                });
+                let tIdCol2 = $("<td>",{
+                  text: `${order[i].ItemName}`
+                });
+                let tIdCol3 = $("<td>",{
+                  text: `${order[i].Quantity}`
+                });
+                let tIdCol4 = $("<td>",{
+                  text: `${order[i].CustomerNumber}`
+                });
+                let tIdCol5 = $("<td>",{
+                  text: `${order[i].TransactionDate}`
+                });
+                
+                row.append(tIdCol);
+                row.append(tIdCol1);
+                row.append(tIdCol2);
+                row.append(tIdCol3);
+                row.append(tIdCol4);
+                row.append(tIdCol5);
+
+                $("#searchTable").append(row);
+              }
+            }
+          }
+        }
+          
+      })
+  }
+</script>
+
+</body>
+
+</html>

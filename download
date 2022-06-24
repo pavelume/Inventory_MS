@@ -1,0 +1,86 @@
+<!-- <% if (filter_type == 'brand') { %> 
+    <center>
+      <br>
+      <h2 class="text-primary">Showing Results for BRAND </h2>
+      <br>
+      <div class="ui container">
+        <div class="ui card">
+          <div class="content">
+            <div class="center aligned header"></div>
+            <div class="center aligned description">
+              <h1 class="text-success"><i class="shopping cart icon"></i><% total_items.forEach(function(order){ %>
+                <%= order.Count %>
+              <% }); %></h1>
+            </div>
+          </div>
+          <div class="extra content">
+            <div class="center aligned author">
+              Total Items in Stock
+            </div>
+          </div>
+        </div>
+      </div>
+    <table class="table table-striped" >
+      <thead>
+      <tr>
+          <th>Brand <i class="yelp icon"></i></th>
+          <th>Stock Left<i class="cart arrow down icon"></i></th>
+          <th>Stock Value Tk</th>
+      </tr>
+  </thead>
+  <tbody>
+      <% display_content.forEach(function(order){ %>
+          <tr>
+              <td><%= order.Brand %></td>
+              <td><%= order.Count %></td>
+              <td>Tk <%= order.Amount %> </td> 
+          </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</center>
+  <% } %>
+
+  <% if (filter_type == 'category') { %> 
+    <center>
+      <br>
+      <h2 class="text-primary">Showing Results for Filter_Type = CATEGORY </h2>
+      <br>
+      <div class="ui container">
+        <div class="ui card">
+          <div class="content">
+            <div class="center aligned header"></div>
+            <div class="center aligned description">
+              <h1 class="text-success"><i class="shopping cart icon"></i><% total_items.forEach(function(order){ %>
+                <%= order.Count %>
+              <% }); %></h1>
+            </div>
+          </div>
+          <div class="extra content">
+            <div class="center aligned author">
+              <i class="shopping cart icon"></i> Total Items in Stock 
+            </div>
+          </div>
+        </div>
+    <table class="table table-striped" >
+      <thead>
+      <tr>
+          <th>Category <i class="list icon"></i></th>
+          <th>Stock Left <i class="cart arrow down icon"></i></th>
+          <th>Stock Value Tk</th>
+      </tr>
+  </thead>
+  <tbody>
+      <% display_content.forEach(function(order){ %>
+          <tr>
+              <td><%= order.Category %></td>
+              <td><%= order.Count %></td>
+              <td>Tk <%= order.Amount %> </td> 
+          </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</center>
+  <% } %>
+   </div>
+  End demo content -->

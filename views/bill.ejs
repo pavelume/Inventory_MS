@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--Custom CSS-->
+  <link rel="stylesheet" href="styles.css">
+  <!--Semantic-UI CSS-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
+  <title>Bill Page</title>
+</head>
+
+<body>
+  <!--Vertical Navbar-->
+  <!--Vertical Navbar-->
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand p-3 mx-5" href="/billing">Aurora IT</a>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item">
+            <a class="nav-link active p-3" aria-current="page" href="/billing">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-3" aria-current="page" href="/viewstocks">View Stock</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-3" aria-current="page" href="/stocks">Add Stock</a>
+          </li>
+        </ul>
+        <form action="/logout?_method=DELETE" method="POST" class="me-5">
+          <center><button type="submit" class="btn btn-danger mb-4 mt-2" ><p class="text-white">Log Out</p></button></center>
+        </form>
+    </div>
+  </nav>
+
+
+
+  <!-- End vertical navbar -->
+  <!-- End vertical navbar -->
+
+
+
+  <!-- Page content holder -->
+  <div class="p-5" id="content">
+    <!-- Toggle button -->
+    <!-- Navbar -->
+
+    <!-- Page content -->
+    <h1 class="text-center ui horizontal divider header text-primary">Bill Page</h1>
+    <br>
+    <span class="btn btn-lg btn-primary " onclick="addNewRow()">Add New Item</span>
+    <br>
+    <div class="ui fluid container">
+
+      <form action="/submitbill" method="POST">
+        <div class="row">
+          <div class="col-md-8">
+
+            <table class="table table-striped tbl_code_with_mark" id="myTable">
+              <thead>
+                <tr>
+                  <th>Item No.</th>
+                  <th>Item ID</th>
+                  <th>Item Name</th>
+                  <th>Category</th>
+                  <th>Brand</th>
+                  <th>Models</th>
+                  <th>Amount</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr id="0">
+                  <td>
+                    <input type="text" class="form-control" value="1" name="totalItem">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="ItemId0" name="ItemID" required>
+                    <button onclick="fetchItems(0)" class="btn btn-outline-success" type="button">Get Item</button>
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="itemName0" name="itemName" >
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="itemCategory0" name="itemCategory" >
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="itemBrand0" name="itemBrand" >
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="itemModel0" name="itemModel" >
+                  </td>
+                  <td>
+                    <input type="number" class="form-control amount" id="itemAmount0" name="itemAmount">
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" id="itemQuantity0" onkeyup="checkQuantity(0)" name="itemQuantity">
+                  </td>
+                </tr>
+
+              </tbody>
+
+
+            </table>
+            
+          </div>
+          <div class="col-md-4">
+            <h4 class="ui horizontal divider header">
+              TOTAL CART VALUE
+            </h4>
+            <br>
+            <div class="mb-3">
+              <label for="" class="form-label">Name: </label>
+              <input type="text" name="customerName" class="form-control"
+                placeholder="Enter customer name" required>
+            </div>
+            <div class="mb-3">
+              <label for="" class="form-label">Contact Number: </label>
+              <input type="tel" name="customerPhone" pattern="[0-9]{11}" class="form-control"
+                placeholder="Enter Customer Contact Number" required>
+            </div>
+              <div class="card text-dark" style="height: 10rem;">
+                <div class="card-body">
+                  <div class="form-floating mb-3">
+                    <input style="height: 8rem;" type="number" class="form-control" id="total" name="total" value=0
+                      required disabled>
+                    <label for="floatingInput">Total (BDT)</label>
+                  </div>
+                  <button type="submit" class="ui teal submit button">Submit</button>
+                  <button class="ui green submit button mt-2" type="button" onclick="downloadInvoice()">Download Bill</button>
+                </div>
+                
+              </div>
+          </div>
+        </div>
+      </form>
+
+
+
+    </div>
+  </div>
+
+
+
+  <!-- Semnatic-UI Scripts -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+
+  <!-- ajax link -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+  <script>
+    var n = 1;
+    function addNewRow() {
+      let x = parseInt(n);
+      console.log("New Row Function Clicked");
+      let row = $("<tr>", {
+        id: parseInt(x),
+      });
+
+      let itemCol = $("<td>");
+      let itemID = $("<input>", {
+        type: "text",
+        class: "form-control",
+        value: (x + 1),
+        id: "totalItem",
+        name: "totalItem",
+      });
+      itemCol.append(itemID);
+
+
+      let col1 = $("<td>");
+      let button = $(`<button onclick="fetchItems(${x})" class="btn btn-outline-success" type="button">Get Item</button>`);
+      let inputItemId = $("<input>", {
+        type: "text",
+        id: `ItemId${x}`,
+        class: "form-control",
+        name: 'ItemID',
+      });
+      col1.append(inputItemId);
+      col1.append(button);
+
+      let col2 = $("<td>");
+      let itemName = $("<input>", {
+        type: "text",
+        id: `itemName${x}`,
+        name: `itemName`,
+        class: "form-control",
+      });
+      col2.append(itemName);
+
+      let col3 = $("<td>");
+      let itemCategory = $("<input>", {
+        type: "text",
+        id: `itemCategory${x}`,
+        name: `itemCategory`,
+        class: "form-control",
+      });
+      col3.append(itemCategory);
+
+      let col4 = $("<td>");
+      let itemBrand = $("<input>", {
+        type: "text",
+        id: `itemBrand${x}`,
+        name: `itemBrand`,
+        class: "form-control",
+      });
+      col4.append(itemBrand);
+
+      let col5 = $("<td>");
+      let itemModel = $("<input>", {
+        type: "text",
+        id: `itemModel${x}`,
+        name: `itemModel`,
+        class: "form-control",
+      });
+      col5.append(itemModel);
+
+      let col6 = $("<td>");
+      let itemAmount = $("<input>", {
+        type: "number",
+        id: `itemAmount${x}`,
+        name: `itemAmount`,
+        class: "form-control amount",
+      });
+      col6.append(itemAmount);
+
+      let col7 = $("<td>");
+      let itemQuantity = $("<input>", {
+        type: "number",
+        id: `itemQuantity${x}`,
+        name: `itemQuantity`,
+        class: "form-control",
+        onkeyup:`checkQuantity(${x})`
+      });
+      col7.append(itemQuantity);
+
+      row.append(itemCol);
+      row.append(col1);
+      row.append(col2);
+      row.append(col3);
+      row.append(col4);
+      row.append(col5);
+      row.append(col6);
+      row.append(col7);
+
+
+      $("tbody").append(row);
+      n++;
+    }
+  </script>
+
+
+
+  <script>
+    function fetchItems(n) {
+      let v = parseInt(n);
+      console.log("fetch Item Clicked");
+      let getItemValue = $(`#ItemId${v}`).val();
+      console.log(getItemValue);
+
+      $.ajax({
+        type: "POST",
+        url: "/fetchitem",
+        data: {
+          "itemid": getItemValue
+        },
+        success: function (data) {
+          if (data.status == 200) {
+
+            x = data.rows;
+            console.log(x);
+
+            $(`#itemName${v}`).val(`${x[0].ItemName}`);
+            $(`#itemCategory${v}`).val(`${x[0].Category}`);
+            $(`#itemBrand${v}`).val(`${x[0].Brand}`);
+            $(`#itemModel${v}`).val(`${x[0].model}`);
+            $(`#itemAmount${v}`).val(`${x[0].Amount}`);
+
+
+            let totalPrice = $(".amount");
+            console.log(totalPrice.length);
+            console.log(totalPrice);
+            let element = 0;
+            for (let index = 0; index < totalPrice.length; index++) {
+              element += parseInt(totalPrice[index].value);
+            }
+
+            $("#total").val(element);
+            console.log(element);
+
+          } else if (data.status == "failed") {
+            alert("failed authentication!")
+          }
+        }
+      });
+
+    }
+  </script>
+  <script>
+    function fetchitem() {
+      console.log('fetch button called')
+      var buttons = document.getElementsByTagName("button");
+      button_num = ""
+      for (var i = 0; i < buttons.length; i++) {
+        if ((buttons[i].id).includes("fetchitem")) {
+          button_id = buttons[i].id
+          console.log(buttons[i])
+          console.log(buttons[i].id)
+          button_num = (button_id.match(/(\d+)/))[0]
+          console.log(button_num)
+        }
+      }
+      console.log(buttons)
+      var inputs = document.getElementsByTagName("input");
+      var pass_item = ""
+      for (var i = 0; i < inputs.length; i++) {
+        input_id = inputs[i].id
+        if ((inputs[i].id).includes("itemid") && ((input_id.charAt(input_id.length - 1)) == button_num)) {
+          pass_item = inputs[i]
+          console.log(pass_item)
+        }
+      }
+      console.log(inputs)
+      $.ajax({
+        type: "POST",
+        url: "/fetchitem",
+        data: {
+          "itemid": pass_item.value
+        },
+        success: function (data) {
+          if (data.status == 200) {
+
+            x = data.rows
+            var inputs = document.getElementsByTagName("input");
+            itemname_id = "itemname" + button_num
+            amount_id = "amount" + button_num
+            category_id = "category" + button_num
+            brand_id = "brand" + button_num
+            model_id = "model" + button_num
+
+            for (var i = 0; i < inputs.length; i++) {
+              if (inputs[i].id == itemname_id) {
+
+                inputs[i].value = x[0].ItemName
+              }
+              if (inputs[i].id == amount_id) {
+                inputs[i].value = x[0].Amount
+              }
+            }
+            var total_amount = 0
+            for (var i = 0; i < inputs.length; i++) {
+
+              if ((inputs[i].id).includes("amount")) {
+                total_amount = total_amount + parseInt(inputs[i].value)
+              }
+            }
+            for (var i = 0; i < inputs.length; i++) {
+              if (inputs[i].id == 'total')
+                inputs[i].value = total_amount
+            }
+
+
+
+            var selects = document.getElementsByTagName("select");
+            for (var i = 0; i < selects.length; i++) {
+              if (selects[i].id == category_id) {
+
+                selects[i].value = x[0].Category
+
+              }
+              if (selects[i].id == brand_id) {
+                selects[i].value = x[0].Brand
+
+              }
+              if (selects[i].id == model_id) {
+                selects[i].value = x[0].model
+
+              }
+            }
+
+          } else if (data.status == "failed") {
+            alert("failed authentication!")
+          }
+        }
+      });
+    }
+  </script>
+  <script>
+    $(function () {
+      // Sidebar toggle behavior
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+      });
+    });
+
+  </script>
+
+<script>
+  function checkQuantity(x){
+
+      let qntValue = $(`#itemQuantity${x}`).val();
+      let itemId = $(`#ItemId${x}`).val();
+      console.log(qntValue);
+      console.log(parseInt(x));
+      let itemPrice = $(`#itemAmount${x}`).val();
+
+      let totalPrice = parseInt(itemPrice)*qntValue;
+      let nowPrice = $(`${"#total"}`).val();
+      let giveValue = parseInt(nowPrice)-parseInt(itemPrice);
+      let result = giveValue+(parseInt(itemPrice)*parseInt(qntValue));
+      $(`${"#total"}`).val(result);
+
+      fetch('quantityCheck',{
+          method:"POST",
+          headers:{'Content-Type':'application/json'}
+      }).then(res=>res.json()).then(data=>{
+        let order = data.rows;
+        console.log(order);
+
+        for(let i=0;i<order.length;i++)
+        {
+          if(order[i].ItemID == itemId)
+          {
+            if(order[i].Quantity<qntValue)
+            {
+              alert("Exist Quantity of this Product");
+              $(`#itemQuantity${x}`).val(" ");
+            }
+          }
+        }
+
+      });
+  }
+</script>
+
+
+
+
+
+  <script>
+    function downloadInvoice() {
+      var data = getSampleData();
+      easyinvoice.createInvoice(data, function (result) {
+        var date_format = new Date();
+        var bill_name = "SHW" + date_format.getDate() + date_format.getMonth() + date_format.getFullYear() + date_format.getHours() + date_format.getMinutes() + date_format.getSeconds()
+        easyinvoice.download(`${bill_name}.pdf`, result.pdf);
+      });
+    }
+
+
+
+    function getSampleData() {
+      var date_format = new Date();
+      var transaction_time = date_format.getHours() + ':' + date_format.getMinutes() + ':' + date_format.getSeconds();
+      var transaction_date = date_format.getDate() + '/' + (parseInt(date_format.getMonth() + 1)).toString() + '/' + date_format.getFullYear();
+      var transaction_id = "SHW" + date_format.getDate() + date_format.getMonth() + date_format.getFullYear().toString().substr(-2) + date_format.getHours() + date_format.getMinutes() + date_format.getSeconds();
+      var item_names = document.getElementsByTagName('input')
+      var items_arr = []
+      for (var i = 0; i < item_names.length; i++) {
+        if ((item_names[i].id).includes('itemname')) {
+          var item_num = (item_names[i].id).charAt((item_names[i].id).length - 1)
+          for (var j = 0; j < item_names.length; j++) {
+            if ((item_names[j].id).includes('amount')) {
+              var amount_num = (item_names[j].id).charAt((item_names[j].id).length - 1)
+              if (item_num == amount_num) {
+                let item_obj = {
+                  "quantity": "1",
+                  "description": item_names[i].value,
+                  "tax": 1,
+                  "price": item_names[j].value
+                }
+                console.log(item_obj)
+                items_arr.push(item_obj)
+              }
+            }
+          }
+
+        }
+      }
+      console.log(items_arr)
+      return {
+        //"documentTitle": "RECEIPT", //Defaults to INVOICE
+        "currency": "BDT",
+        "taxNotation": "gst", //or gst
+        "marginTop": 25,
+        "marginRight": 25,
+        "marginLeft": 25,
+        "marginBottom": 25,
+        "logo": "https://www.aurorait-21.com/wp-content/uploads/2022/02/LOGO-removebg-preview1-removebg-preview.png", //or base64
+        //"logoExtension": "png", //only when logo is base64
+        "sender": {
+          "company": "Aurora IT",
+          "address": "H#69,R#12,S#10",
+          "zip": "1230",
+          "city": "Uttara",
+          "country": "Mob. - 01571709390",
+
+          "custom1": "GST No. - AS1452"
+          //"custom2": "custom value 2",
+          //"custom3": "custom value 3"
+        },
+
+        "invoiceNumber": transaction_id,
+        "invoiceDate": transaction_date,
+        "invoiceTime": transaction_time,
+        "products": items_arr,
+        "bottomNotice": "Thank You for shopping from Aurora IT. We are looking forward to your next visit !"
+      };
+    }
+
+  </script>
+
+</body>
+
+</html>
